@@ -23,7 +23,7 @@ final class TaskFieldDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public static function defaultSettings(): array {
-    $setting = ['foo' => 'bar'];
+    $setting = ['fo_widget' => 'bar'];
     return $setting + parent::defaultSettings();
   }
 
@@ -31,10 +31,10 @@ final class TaskFieldDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state): array {
-    $element['foo'] = [
+    $element['fo_widget'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Foo'),
-      '#default_value' => $this->getSetting('foo'),
+      '#title' => $this->t('fo_widget'),
+      '#default_value' => $this->getSetting('fo_widget'),
     ];
     return $element;
   }
@@ -44,7 +44,7 @@ final class TaskFieldDefaultWidget extends WidgetBase {
    */
   public function settingsSummary(): array {
     return [
-      $this->t('Foo: @foo', ['@foo' => $this->getSetting('foo')]),
+      $this->t('fo_widget: @fo_widget', ['@fo_widget' => $this->getSetting('fo_widget')]),
     ];
   }
 
@@ -52,10 +52,12 @@ final class TaskFieldDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
-    $element['value'] = $element + [
+    $element['task'] = $element + [
       '#type' => 'textfield',
-      '#default_value' => $items[$delta]->value ?? NULL,
+      '#default_value' => $items[$delta]->task ?? NULL,
     ];
+    // $element['status']
+    // TODO CONTINUE HERE!!!!!!
     return $element;
   }
 
