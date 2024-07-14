@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for task_field module.
+ */
+/**
+ * Implements hook_theme().
+ */
+function task_field_theme() {
+  return [
+    'task_field' => [
+      'variables' => [
+        'value' => '',
+      ]
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function task_field_theme_suggestions_task_field(array $variables) {
+  $suggestions = [];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'task_field__' . $sanitized_view_mode;
+
+  if (isset($variables['elements']['#entity_type'])) {
+    $suggestions[] = 'task_field__' . $variables['elements']['#entity_type'];
+    $suggestions[] = 'task_field__' . $variables['elements']['#entity_type'] . '__' . $sanitized_view_mode;
+  }
+
+  if (isset($variables['elements']['#bundle'])) {
+    $suggestions[] = 'task_field__' . $variables['elements']['#entity_type'] . '__' . $variables['elements']['#bundle'];
+    $suggestions[] = 'task_field__' . $variables['elements']['#entity_type'] . '__' . $variables['elements']['#bundle'] . '__' . $sanitized_view_mode;
+  }
+
+  return $suggestions;
+}

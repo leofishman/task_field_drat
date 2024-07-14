@@ -1,0 +1,8 @@
+name: 'Task Field'
+type: module
+description: 'Different field types to manage projects, such as task, priority, status, timer.'
+package: Fields
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:field
+  - drupal:field_states

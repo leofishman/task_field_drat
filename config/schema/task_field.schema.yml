@@ -1,0 +1,39 @@
+field.storage_settings.task_field_task:
+  type: mapping
+  label: Task storage settings
+  mapping:
+    fo_field:
+      type: string
+      label: Fo_field
+
+field.field_settings.task_field_task:
+  type: mapping
+  label: Task field settings
+  mapping:
+    active:
+      type: string
+      label: Active
+
+field.value.task_field_task:
+  type: mapping
+  label: Default value
+  mapping:
+    value:
+      type: label
+      label: Value
+
+field.formatter.settings.task_field_task:
+  type: mapping
+  label: Task formatter settings
+  mapping:
+    fo_formatter:
+      type: string
+      label: Fo_formatter
+
+field.widget.settings.task_field_task_field_default:
+  type: mapping
+  label: Task Field Default widget settings
+  mapping:
+    fo_settings:
+      type: string
+      label: Fo_widget
