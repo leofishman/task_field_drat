@@ -25,68 +25,82 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  */
 final class TaskItem extends FieldItemBase {
   use StringTranslationTrait;
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultStorageSettings(): array {
-    $settings = ['fo_active' => ''];
-    return $settings + parent::defaultStorageSettings();
-  }
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public static function defaultStorageSettings(): array {
+  //   $settings = ['fo_active' => ''];
+  //   return $settings + parent::defaultStorageSettings();
+  // }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data): array {
-    $element['fo_active'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('fo_active'),
-      '#default_value' => $this->getSetting('fo_active'),
-      '#disabled' => $has_data,
-    ];
-    return $element;
-  }
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data): array {
+  //   $element['fo_active'] = [
+  //     '#type' => 'textfield',
+  //     '#title' => $this->t('fo_active'),
+  //     '#default_value' => $this->getSetting('fo_active'),
+  //     '#disabled' => $has_data,
+  //   ];
+  //   return $element;
+  // }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultFieldSettings(): array {
-    $settings = ['fo_active' => ''];
-    return $settings + parent::defaultFieldSettings();
-  }
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public static function defaultFieldSettings(): array {
+  //   $settings = ['fo_active' => ''];
+  //   return $settings + parent::defaultFieldSettings();
+  // }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function fieldSettingsForm(array $form, FormStateInterface $form_state): array {
-    $element['fo_active'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Active'),
-      '#default_value' => $this->getSetting('fo_active'),
-    ];
-    return $element;
-  }
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public function fieldSettingsForm(array $form, FormStateInterface $form_state): array {
+  //   $element['fo_active'] = [
+  //     '#type' => 'textfield',
+  //     '#title' => $this->t('Active'),
+  //     '#default_value' => $this->getSetting('fo_active'),
+  //   ];
+  //   return $element;
+  // }
 
   /**
    * {@inheritdoc}
    */
   public function isEmpty(): bool {
-    return match ($this->get('task')->getValue()) {
+    return match ($this->get('status')->getValue()) {
       NULL, '' => TRUE,
       default => FALSE,
     };
   }
 
+
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
+  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
 
-    $properties['task'] = DataDefinition::create('string')
-      ->setLabel(self::t('Task'))
-      ->setRequired(TRUE);
+    $properties['deadline'] = DataDefinition::create('datetime_iso8601')
+      ->setLabel(t('Deadline'))
+      ->setRequired(FALSE);
 
-      $properties['status'] = DataDefinition::create('list_state')
-      ->setLabel(self::t('Status'));
+    $properties['archive'] = DataDefinition::create('boolean')
+      ->setLabel(t('Archive'))
+      ->setRequired(FALSE);
+
+    $properties['timer'] = DataDefinition::create('boolean')
+      ->setLabel(t('Timer'))
+      ->setRequired(FALSE);
+
+    $properties['status'] = DataDefinition::create('string')
+      ->setLabel(t('Status'))
+      ->setRequired(FALSE);
+
+    $properties['priority'] = DataDefinition::create('string')
+      ->setLabel(t('Priority'))
+      ->setRequired(FALSE);
 
     return $properties;
   }
@@ -97,15 +111,15 @@ final class TaskItem extends FieldItemBase {
   public function getConstraints(): array {
     $constraints = parent::getConstraints();
 
-    $constraint_manager = $this->getTypedDataManager()->getValidationConstraintManager();
+    // $constraint_manager = $this->getTypedDataManager()->getValidationConstraintManager();
 
-    // @DCG Suppose our value must not be longer than 10 characters.
-    $options['task']['Length']['max'] = 140;
+    // // @DCG Suppose our value must not be longer than 10 characters.
+    // $options['task']['Length']['max'] = 140;
 
-    // @DCG
-    // See /core/lib/Drupal/Core/Validation/Plugin/Validation/Constraint
-    // directory for available constraints.
-    $constraints[] = $constraint_manager->create('ComplexData', $options);
+    // // @DCG
+    // // See /core/lib/Drupal/Core/Validation/Plugin/Validation/Constraint
+    // // directory for available constraints.
+    // $constraints[] = $constraint_manager->create('ComplexData', $options);
     return $constraints;
   }
 
@@ -114,25 +128,30 @@ final class TaskItem extends FieldItemBase {
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition): array {
 
-    $columns = [
-      'task' => [
-        'type' => 'varchar',
-        'not null' => FALSE,
-        'description' => 'Task name.',
-        'length' => 255,
+    return [
+      'columns' => [
+        'deadline' => [
+          'type' => 'date',
+        ],
+        'archive' => [
+          'type' => 'boolean',
+          'default' => 0,
+        ],
+        'timer' => [
+          'type' => 'boolean',
+        ],
+        'status' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ],
+        'priority' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ],
       ],
-      'status' => [
-        'type' => 'list_states',
-        'description' => 'Task status'
-      ]
     ];
-
-    $schema = [
-      'columns' => $columns,
-      // @todo Add indexes here if necessary.
-    ];
-
-    return $schema;
   }
 
   /**
@@ -140,7 +159,7 @@ final class TaskItem extends FieldItemBase {
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition): array {
     $random = new Random();
-    $values['task'] = $random->word(mt_rand(1, 50));
+    $values['status'] = $random->word(mt_rand(1, 50));
     return $values;
   }
 

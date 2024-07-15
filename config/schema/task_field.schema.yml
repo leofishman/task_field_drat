@@ -14,13 +14,6 @@ field.field_settings.task_field_task:
       type: string
       label: Active
 
-field.value.task_field_task:
-  type: mapping
-  label: Default value
-  mapping:
-    value:
-      type: label
-      label: Value
 
 field.formatter.settings.task_field_task:
   type: mapping
@@ -37,3 +30,54 @@ field.widget.settings.task_field_task_field_default:
     fo_settings:
       type: string
       label: Fo_widget
+
+# Field storage.
+field.storage_settings.task_field_parameters:
+  type: mapping
+  label: Example storage settings
+  mapping:
+    foo:
+      type: string
+      label: Foo
+
+# Field instance.
+field.field_settings.task_field_parameters:
+  type: mapping
+  label: Example field settings
+  mapping:
+    bar:
+      type: string
+      label: Bar
+
+# Default value.
+field.value.task_field_parameters:
+  type: mapping
+  label: Default value
+  mapping:
+    deadline:
+      type: datetime
+      label: Deadline
+    status:
+      type: string
+      label: status
+    timer:
+      type: boolean
+      label: Timer
+
+# Field widget.
+field.widget.settings.task_field_parameters:
+  type: mapping
+  label: Example widget settings
+  mapping:
+    foo:
+      type: string
+      label: Foo
+
+# Field formatter.
+field.formatter.settings.task_field_parameters_default:
+  type: mapping
+  label: Example formatter settings
+  mapping:
+    foo:
+      type: string
+      label: Foo

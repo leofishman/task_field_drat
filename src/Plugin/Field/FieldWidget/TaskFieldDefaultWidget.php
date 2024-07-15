@@ -52,12 +52,52 @@ final class TaskFieldDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
-    $element['task'] = $element + [
-      '#type' => 'textfield',
-      '#default_value' => $items[$delta]->task ?? NULL,
+
+    $element['deadline'] = [
+      '#type' => 'date',
+      '#title' => $this->t('Deadline'),
+      '#default_value' => isset($items[$delta]->deadline) ? $items[$delta]->deadline : '',
     ];
-    // $element['status']
-    // TODO CONTINUE HERE!!!!!!
+
+    $element['archive'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Archive'),
+      '#default_value' => isset($items[$delta]->archive) ? $items[$delta]->archive : 0,
+    ];
+
+    $element['timer'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Timer'),
+      '#default_value' => isset($items[$delta]->timer) ? $items[$delta]->timer : 0,
+    ];
+
+    $element['status'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Status'),
+      '#options' => [
+        'new' => $this->t('New'),
+        'paused' => $this->t('Paused'),
+        'in_progress' => $this->t('In Progress'),
+        'completed' => $this->t('Completed'),
+        'cancelled' => $this->t('Cancelled'),
+      ],
+      '#default_value' => isset($items[$delta]->status) ? $items[$delta]->status : '',
+    ];
+
+    $element['priority'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Priority'),
+      '#options' => [
+        'none' => $this->t('none'),
+        'low' => $this->t('Low'),
+        'medium' => $this->t('Medium'),
+        'high' => $this->t('High'),
+        'urgent' => $this->t('Urgent'),
+        'inmediate' => $this->t('Inmediate'),
+      ],
+      '#default_value' => isset($items[$delta]->priority) ? $items[$delta]->priority : '',
+    ];
+
     return $element;
   }
 

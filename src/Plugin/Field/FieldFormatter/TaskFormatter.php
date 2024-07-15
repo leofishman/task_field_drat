@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\task_field\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 
 /**
  * Plugin implementation of the 'Task' formatter.
@@ -53,10 +54,16 @@ final class TaskFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $element = [];
+    dump($items);
     foreach ($items as $delta => $item) {
       $element[$delta] = [
         '#task' => $item->task,
+        '#deadline' => DrupalDateTime::createFromTimestamp($item->deadline)->format('Y-m-d'),
+        '#archive' => $item->archive ? $this->t('Yes') : $this->t('No'),
+        '#timer' => $item->timer ? $this->t('Yes') : $this->t('No'),
         '#status' => $item->status,
+        '#priority' => $item->priority,
+        '#comments' => $item->comments,
         '#theme' => 'task_field',
       ];
     }

@@ -1,0 +1,4 @@
+task_field_parameters:
+  css:
+    component:
+      css/task-field-parameters-widget.css: {}

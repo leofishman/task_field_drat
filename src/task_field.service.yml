@@ -1,0 +1,6 @@
+services:
+  task_field.custom_task_field_event_subscriber:
+    class: Drupal\task_field\EventSubscriber\CustomTaskFieldEventSubscriber
+    arguments: ['@entity_type.manager', '@entity_field.manager', '@entity_type.bundle.info']
+    tags:
+      - { name: event_subscriber }
