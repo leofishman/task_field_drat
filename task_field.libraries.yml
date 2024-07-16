@@ -2,3 +2,8 @@ task_field_parameters:
   css:
     component:
       css/task-field-parameters-widget.css: {}
+
+task_field_progress:
+  css:
+    component:
+      css/task-field-progress-widget.css: {}

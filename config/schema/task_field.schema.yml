@@ -1,83 +1,214 @@
+# Task Field
 field.storage_settings.task_field_task:
   type: mapping
   label: Task storage settings
   mapping:
-    fo_field:
-      type: string
-      label: Fo_field
+    priority_options:
+      type: sequence
+      label: Priority options
+      sequence:
+        type: string
+        label: Priority label
+    status_options:
+      type: sequence
+      label: Status options
+      sequence:
+        type: string
+        label: Status label
 
 field.field_settings.task_field_task:
   type: mapping
   label: Task field settings
   mapping:
-    active:
+    default_priority:
+      type: integer
+      label: Default priority
+    default_status:
       type: string
-      label: Active
-
+      label: Default status
 
 field.formatter.settings.task_field_task:
   type: mapping
   label: Task formatter settings
   mapping:
-    fo_formatter:
+    display_format:
       type: string
-      label: Fo_formatter
+      label: Display format
 
 field.widget.settings.task_field_task_field_default:
   type: mapping
   label: Task Field Default widget settings
   mapping:
-    fo_settings:
-      type: string
-      label: Fo_widget
+    display_timer:
+      type: boolean
+      label: Display timer
 
-# Field storage.
+# Progress Field
+field.storage_settings.task_field_progress:
+  type: mapping
+  label: Progress storage settings
+  mapping:
+    priority_options:
+      type: sequence
+      label: Priority options
+      sequence:
+        type: string
+        label: Priority label
+    status_options:
+      type: sequence
+      label: Status options
+      sequence:
+        type: string
+        label: Status label
+
+field.field_settings.task_field_progress:
+  type: mapping
+  label: Progress field settings
+  mapping:
+    default_priority:
+      type: integer
+      label: Default priority
+    default_status:
+      type: string
+      label: Default status
+
+field.value.task_field_progress:
+  type: mapping
+  label: Default value
+  mapping:
+    priority:
+      type: integer
+      label: Priority
+    timer:
+      type: boolean
+      label: Timer
+    status:
+      type: string
+      label: Status
+    deadline:
+      type: datetime_iso8601
+      label: Deadline
+
+field.widget.settings.task_field_progress:
+  type: mapping
+  label: Progress widget settings
+  mapping:
+    display_timer:
+      type: boolean
+      label: Display timer
+
+field.formatter.settings.task_field_progress_default:
+  type: mapping
+  label: Progress formatter settings
+  mapping:
+    display_format:
+      type: string
+      label: Display format
+
+# Parameters Field (if still needed)
 field.storage_settings.task_field_parameters:
   type: mapping
-  label: Example storage settings
+  label: Parameters storage settings
   mapping:
-    foo:
-      type: string
-      label: Foo
+    parameter_options:
+      type: sequence
+      label: Parameter options
+      sequence:
+        type: string
+        label: Parameter label
 
-# Field instance.
 field.field_settings.task_field_parameters:
   type: mapping
-  label: Example field settings
+  label: Parameters field settings
   mapping:
-    bar:
+    default_parameter:
       type: string
-      label: Bar
+      label: Default parameter
 
-# Default value.
 field.value.task_field_parameters:
   type: mapping
   label: Default value
   mapping:
     deadline:
-      type: datetime
+      type: datetime_iso8601
       label: Deadline
     status:
       type: string
-      label: status
+      label: Status
     timer:
       type: boolean
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       label: Timer
 
-# Field widget.
 field.widget.settings.task_field_parameters:
   type: mapping
-  label: Example widget settings
+  label: Parameters widget settings
   mapping:
-    foo:
+    display_format:
       type: string
-      label: Foo
+      label: Display format
 
-# Field formatter.
 field.formatter.settings.task_field_parameters_default:
   type: mapping
-  label: Example formatter settings
+  label: Parameters formatter settings
   mapping:
-    foo:
+    display_format:
       type: string
-      label: Foo
+      label: Display format

@@ -143,13 +143,27 @@ final class ParametersItem extends FieldItemBase {
    */
   public static function getPriorityOptions() {
     return [
-      0 => t('Imminent'),
-      1 => t('Urgent'),
-      2 => t('Important'),
-      3 => t('Normal'),
-      4 => t('Low'),
-      5 => t('None'),
+      25 => t('Imminent'),
+      20 => t('Urgent'),
+      15 => t('Important'),
+      10 => t('Normal'),
+      5 => t('Low'),
+      0 => t('None'),
+    ];
+  }
 
+
+ /**
+   * {@inheritdoc}
+   */
+  public static function getStatusOptions() {
+    return [
+      'new' => 'New',
+      'doing' => 'Doing',
+      'paused' => 'Paused',
+      'postponed' => 'Postponed',
+      'cancelled' => 'Cancelled',
+      'completed' => 'Completed'
     ];
   }
 
