@@ -37,3 +37,31 @@ field.widget.settings.task_field_task_field_default:
     fo_settings:
       type: string
       label: Fo_widget
+
+
+# Default value.
+field.value.task_field_progress:
+  type: mapping
+  label: Default value
+  mapping:
+    priority:
+      type: integer
+      label: Priority
+    timer:
+      type: boolean
+      label: Timer
+    status:
+      type: string
+      label: Status
+    deadline:
+      type: datetime
+      label: Deadline
+
+# Field formatter.
+field.formatter.settings.task_field_progress_default:
+  type: mapping
+  label: Example formatter settings
+  mapping:
+    foo:
+      type: string
+      label: Foo

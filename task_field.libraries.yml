@@ -1,0 +1,4 @@
+task_field_progress:
+  css:
+    component:
+      css/task-field-progress-widget.css: {}
