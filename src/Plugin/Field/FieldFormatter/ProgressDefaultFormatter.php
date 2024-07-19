@@ -60,7 +60,7 @@ final class ProgressDefaultFormatter extends FormatterBase {
         $element[$delta]['priority'] = [
           '#type' => 'item',
           '#title' => $this->t('Priority'),
-          '#markup' => $item->priority,
+          '#markup' => $item->getDefaultPriorityOptions()[$item->priority],
         ];
       }
 

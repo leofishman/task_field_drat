@@ -40,7 +40,7 @@ final class ProgressTableFormatter extends FormatterBase {
 
       $row[]['#markup'] = $delta + 1;
 
-      $row[]['#markup'] = $item->priority;
+      $row[]['#markup'] = $item->getDefaultPriorityOptions()[$item->priority];
 
       $row[]['#markup'] = $item->timer ? $this->t('Yes') : $this->t('No');
 
