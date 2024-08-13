@@ -128,6 +128,7 @@ final class ProgressItem extends FieldItemBase {
   public static function getDefaultStatusOptions() {
     return [
       'new' => t('New'),
+      'planning' => t('Planning'),
       'doing' => t('Doing'),
       'paused' => t('Paused'),
       'postponed' => t('Postponed'),
